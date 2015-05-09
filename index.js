@@ -1,3 +1,9 @@
+var theWindow = window;
+
 exports.getWindow = function() {
-	return window;
+	return theWindow;
+}
+
+exports.setWindow = function(newWindow) {
+	theWindow = newWindow;
 }
