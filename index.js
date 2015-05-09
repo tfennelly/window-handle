@@ -1,7 +1,11 @@
-var theWindow = window;
+var theWindow;
 
 exports.getWindow = function() {
-	return theWindow;
+	if (theWindow) {
+		return theWindow;
+	} else {
+		return window;
+	}
 }
 
 exports.setWindow = function(newWindow) {
