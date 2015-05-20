@@ -3,18 +3,25 @@ var callbacks = [];
 var windowSetTimeout;
 
 exports.getWindow = function(callback, timeout) {
-	if (theWindow) {
+    function execCallback(windowToPass) {
 		if (callback) {
-			callback(theWindow);
-		}
-		return theWindow;
+            try {
+                callback(windowToPass);                
+            } catch (e) {
+                console.log("Error invoking window-handle callback.");
+                console.log(e);
+            }
+        }
+    }
+    
+	if (theWindow) {
+        execCallback(theWindow);
+        return theWindow;
 	} 
 	
 	try {
 		if (window) {
-			if (callback) {
-				callback(window);
-			}
+            execCallback(window);
 			return window;
 		} 
 	} catch (e) {
