@@ -10,6 +10,7 @@ describe("index.js", function () {
     it("- test ok", function (done) {
         testUtil.onPage(function(window) {
             var windowHandle = require("../index");
+            windowHandle.reset();
 
             windowHandle.getWindow(function(theWindow) {
             	expect(theWindow).toBe(window);
@@ -23,6 +24,7 @@ describe("index.js", function () {
     it("- test fail", function (done) {
         testUtil.onPage(function(window) {
             var windowHandle = require("../index");
+            windowHandle.reset();
 
             windowHandle.setWindow(undefined);
             windowHandle.getWindow(function(theWindow) {

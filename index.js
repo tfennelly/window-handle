@@ -22,6 +22,7 @@ function execCallback(callback, theWindow) {
  * @returns {*}
  */
 exports.getWindow = function(callback, timeout) {
+    callbacks.push(callback);
     
 	if (theWindow) {
         execCallback(callback, theWindow);
@@ -40,7 +41,6 @@ exports.getWindow = function(callback, timeout) {
 
 	if (callback) {
         function waitForWindow(callback) {
-            callbacks.push(callback);
             var windowSetTimeout = setTimeout(function() {
                 callback.error = "Timed out waiting on the window to be set.";
                 callback.call(callback);
@@ -69,7 +69,6 @@ exports.setWindow = function(newWindow) {
 	for (var i = 0; i < callbacks.length; i++) {
 		execCallback(callbacks[i], theWindow);
 	}
-    callbacks = [];
 }
 
 /**
@@ -82,3 +81,10 @@ exports.setWindow = function(newWindow) {
 exports.setDefaultTimeout = function(millis) {
     defaultTimeout = millis;
 }
+
+/**
+ * Reset the window handle, clearing callbacks etc.
+ */
+exports.reset = function() {
+    callbacks = [];
+};
